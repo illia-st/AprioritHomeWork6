@@ -10,6 +10,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(COMMON_FILES
         "Common/CommunicationUnit.h"
         "Common/Core.h"
+        "Common/Buffer.h"
         "Common/CommunicationUnit.cpp"
         )
 add_subdirectory(Server)

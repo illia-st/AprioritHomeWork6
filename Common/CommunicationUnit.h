@@ -16,6 +16,7 @@ namespace TCP {
         virtual ~CommunicationUnit();
 
         explicit CommunicationUnit(uint16_t port, uint32_t host = INADDR_ANY);
+        explicit CommunicationUnit(uint16_t port, const std::string& host);
 
         void SetSocket(Socket sock);
 

@@ -3,6 +3,7 @@
 TCP::Host::Host(): TCP::CommunicationUnit() {}
 
 TCP::Host::Host(uint16_t port, uint32_t host): TCP::CommunicationUnit(port, host) {}
+TCP::Host::Host(uint16_t port, const std::string& host): TCP::CommunicationUnit(port, host) {}
 
 TCP::Buffer TCP::Host::LoadData(){
     Buffer buffer;
@@ -33,6 +34,7 @@ TCP::Buffer TCP::Host::LoadData(){
         int ret = recvfrom(this->GetSocket(), buffer.GetBuffer().get(), Buffer_size, 0,
                            reinterpret_cast<sockaddr*>(&this->GetData()), &len);
         if(ret > 0){
+            buffer.SetLastReceivedBytes(ret);
             return std::move(buffer);
         }
         else if(ret == 0){

@@ -4,6 +4,7 @@
 #include <thread>
 #include <mutex>
 #include <string_view>
+#include <algorithm>
 #include <fcntl.h>
 #include "IClient.h"
 
@@ -12,12 +13,9 @@ public:
     Client() = default;
     Client(uint32_t host, uint16_t port);
     Client(const std::string& IP, uint16_t port);
+    ~Client();
     int Connect() override;
     int Disconnect() override;
     Buffer LoadData() override;
     int SendData(const std::string& msg);
-private:
-    // this is the data which will be updated
-    std::thread data_loader;
-    std::mutex data_mutex;
 };

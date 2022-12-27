@@ -17,35 +17,27 @@ namespace TCP {
             addr.sin_addr.s_addr = INADDR_ANY;
             return;
         }
-        addr.sin_addr.s_addr = ntohl(host);
+        addr.sin_addr.s_addr = htonl(host);
+    }
+    CommunicationUnit::CommunicationUnit(uint16_t port, const std::string& host) {
+        addr.sin_family = AF_INET;
+        addr.sin_port = htons(port);
+        if (host == "127.0.0.1") {
+            addr.sin_addr.s_addr = INADDR_ANY;
+            return;
+        }
+        inet_pton(AF_INET, host.data(), &addr.sin_addr);
     }
 
     void CommunicationUnit::CloseSocket() {
+//        shutdown(m_sock, SHUT_RDWR);
         close(m_sock);
         m_sock = -1;
         con = Connection::CLOSED;
     }
-    // server method, I think I should have make a derived from Communication unit
-    // Buffer CommunicationUnit::LoadData() {
-    //     Buffer buf;
-    //     int ans = recv(this->GetSocket(), buf.GetBuffer().get(), Buffer_size, MSG_DONTWAIT);
-    //     if(ans == -1){
-    //         buf.SetFlag(MsgFlag::EmptyMsg);
-    //         return std::move(buf);
-    //     }
-    //     std::cout << "Something was accepted" << std::endl;
-    //     if(ans == 0){ 
-    //         buf.SetFlag(MsgFlag::Disconnect);
-    //         std::cout << "The client disconnected" << std::endl;
-    //         return std::move(buf);
-    //     }
-    //     buf.SetLastReceivedBytes(ans);
-    //     buf.SetFlag(static_cast<MsgFlag>(buf.GetBuffer().get()[0]));
-
-    //     return std::move(buf);
-    // }
 
     int CommunicationUnit::Disconnect() {
+        std::cout << "Disconnect" << std::endl;
         Clear();
         return 1;
     }
@@ -68,7 +60,7 @@ namespace TCP {
 
     void CommunicationUnit::Clear() {
         this->CloseSocket();
-        memset(&addr, 0, sizeof(struct sockaddr_in));
+//        memset(&addr, 0, sizeof(struct sockaddr_in));
     }
 
     uint16_t CommunicationUnit::GetPort() const {

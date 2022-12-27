@@ -2,7 +2,7 @@
 
 TCP::IClient::IClient(uint32_t host, uint16_t port): m_host(port, host) {}
 
-TCP::IClient::IClient(const std::string& IP, uint16_t port): m_host(port, inet_addr(IP.c_str())) {}
+TCP::IClient::IClient(const std::string& IP, uint16_t port): m_host(port, IP) {}
 
 TCP::ServerInfo &TCP::IClient::GetHostInfo() {return m_host;}
 
