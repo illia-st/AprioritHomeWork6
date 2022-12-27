@@ -16,15 +16,15 @@ namespace TCP{
     };
 
     class CommunicationUnit;
+    class Host;
+    class Session;
+    using ServerInfo = CommunicationUnit;
+    using ConnectionsList = std::list<std::shared_ptr<Session>>;
+
     class IServer;
     class IClient;
     class Client;
     class Server;
 
-    using ServerInfo = CommunicationUnit;
-    using ClientInfo = CommunicationUnit;
-    using ConnectionsList = std::list<std::shared_ptr<CommunicationUnit>>;
-
-    
 
 }

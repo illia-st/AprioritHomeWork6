@@ -25,25 +25,25 @@ namespace TCP {
         m_sock = -1;
         con = Connection::CLOSED;
     }
+    // server method, I think I should have make a derived from Communication unit
+    // Buffer CommunicationUnit::LoadData() {
+    //     Buffer buf;
+    //     int ans = recv(this->GetSocket(), buf.GetBuffer().get(), Buffer_size, MSG_DONTWAIT);
+    //     if(ans == -1){
+    //         buf.SetFlag(MsgFlag::EmptyMsg);
+    //         return std::move(buf);
+    //     }
+    //     std::cout << "Something was accepted" << std::endl;
+    //     if(ans == 0){ 
+    //         buf.SetFlag(MsgFlag::Disconnect);
+    //         std::cout << "The client disconnected" << std::endl;
+    //         return std::move(buf);
+    //     }
+    //     buf.SetLastReceivedBytes(ans);
+    //     buf.SetFlag(static_cast<MsgFlag>(buf.GetBuffer().get()[0]));
 
-    Buffer<> CommunicationUnit::LoadData() {
-        Buffer<> buf;
-        int ans = recv(this->GetSocket(), buf.GetBuffer().get(), Buffer_size, MSG_DONTWAIT);
-        if(ans == -1){
-            buf.SetFlag(MsgFlag::EmptyMsg);
-            return std::move(buf);
-        }
-        std::cout << "Something was accepted" << std::endl;
-        if(ans == 0){ 
-            buf.SetFlag(MsgFlag::Disconnect);
-            std::cout << "The client disconnected" << std::endl;
-            return std::move(buf);
-        }
-        buf.SetLastReceivedBytes(ans);
-        buf.SetFlag(static_cast<MsgFlag>(buf.GetBuffer().get()[0]));
-
-        return std::move(buf);
-    }
+    //     return std::move(buf);
+    // }
 
     int CommunicationUnit::Disconnect() {
         Clear();
@@ -60,7 +60,7 @@ namespace TCP {
         return 1;
     }
     void CommunicationUnit::SetSocket(Socket sock) {
-        if (sock > 0) {
+        if (sock >= 0) {
             m_sock = sock;
             con = Connection::OPENED;
         }

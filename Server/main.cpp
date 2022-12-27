@@ -13,13 +13,15 @@ int main(int argc, char** argv){
     if(server.StartServer() == 1){
         std::string line {};
         std::cout << "Type STOP to close server" << std::endl;
-        while(getline(std::cin, line, ' ')){
+        while(std::getline(std::cin, line, '\n')){
+            // std::getline(std::cin, line);
             if(line == "STOP"){
                 server.StopServer();
                 break;
             }
             std::cin.clear();
             std::cin.ignore(10'000,'\n');
+            line.clear();
         }
     }
 

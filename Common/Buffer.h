@@ -10,13 +10,20 @@ namespace TCP{
         Disconnect = 100
     };    
 
-    template <std::size_t N = Buffer_size>
     class Buffer{
     public:
-        Buffer(): last_received_bytes(0), buffer(std::make_shared<char[]>(N)), flag(MsgFlag::EmptyMsg) {}
+        Buffer(): last_received_bytes(0), buffer(std::make_shared<char[]>(Buffer_size)), flag(MsgFlag::EmptyMsg) {}
         Buffer(Buffer&& other): last_received_bytes(other.last_received_bytes), buffer(std::move(other.buffer)), flag(other.flag){
             other.flag = MsgFlag::Disconnect;
             other.last_received_bytes = 0;
+        }
+        Buffer& operator = (Buffer&& other){
+            last_received_bytes = other.last_received_bytes;
+            buffer = std::move(other.buffer);
+            flag = other.flag;
+            other.flag = MsgFlag::Disconnect;
+            other.last_received_bytes = 0;
+            return *this;
         }
         std::shared_ptr<char[]>& GetBuffer(){
             return buffer;

@@ -6,6 +6,7 @@
 #include <atomic>
 #include "../../Common/Core.h"
 #include "../../Common/CommunicationUnit.h"
+#include "Session.h"
 
 // we will inher from TCP, we need to have incapsulaated server info
     class TCP::IServer {

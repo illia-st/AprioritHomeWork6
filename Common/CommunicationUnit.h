@@ -8,6 +8,7 @@
 #include <arpa/inet.h>
 
 namespace TCP {
+
     class CommunicationUnit {
     public:
         CommunicationUnit();
@@ -28,7 +29,7 @@ namespace TCP {
 
         virtual int Disconnect();
 
-        virtual Buffer<> LoadData();
+        virtual Buffer LoadData() { return Buffer();}
 
         int SendMsg(const char *buf, size_t N);
 
@@ -46,4 +47,5 @@ namespace TCP {
     private:
         Connection con{};
     };
+    
 }

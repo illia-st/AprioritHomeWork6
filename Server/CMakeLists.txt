@@ -12,8 +12,10 @@ endforeach()
 add_library(${SERVER_NAME} STATIC
         "Header/IServer.h"
         "Header/Server.h"
+        "Header/Session.h"
         "Source/IServer.cpp"
         "Source/Server.cpp"
+        "Source/Session.cpp"
         ${COMMON_FILES_LIST}
         )
 

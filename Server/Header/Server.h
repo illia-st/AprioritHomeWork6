@@ -19,7 +19,7 @@ class TCP::Server : public TCP::IServer {
         mutable std::mutex client_mutex;
         mutable std::mutex respond_mutex;
         mutable std::condition_variable respond_cv;
-        std::queue<std::pair<std::shared_ptr<CommunicationUnit>, Buffer<>>> responds;
+        std::queue<std::pair<std::shared_ptr<Session>, Buffer>> responds;
         std::thread acceptor;
         std::thread data_loader;
         std::thread respond_manager;
