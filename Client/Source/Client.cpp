@@ -46,7 +46,7 @@ TCP::Buffer TCP::Client::LoadData(){
 int TCP::Client::SendData(const std::string& msg){
     Buffer buffer;
     std::shared_ptr<char[]> ptr {std::make_shared<char[]>(msg.length() + 1)};
-    if(msg == "Hello"){
+    if(msg == "hello"){
         ptr.get()[0] = static_cast<uint8_t>(MsgFlag::GreetingMsg);
     }else if(msg == "Close"){
         ptr.get()[0] = static_cast<uint8_t>(MsgFlag::Disconnect);

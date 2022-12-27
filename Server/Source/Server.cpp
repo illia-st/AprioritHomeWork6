@@ -166,7 +166,7 @@ void TCP::Server::RespondRequests(){
                 break;  
             }
             case MsgFlag::GreetingMsg:{
-                std::string greeting {"World"};
+                std::string greeting {"world"};
                 std::size_t sent_bytes = send(task.first->GetSocket(), greeting.data(),
                                 greeting.length(), 0);
                 if(sent_bytes == -1){
